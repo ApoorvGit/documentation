@@ -1,0 +1,200 @@
+openapi: 3.0.0
+servers:
+  - url: http://localhost:4000
+paths:
+  /api/projects:
+    post:
+      tags:
+        - default
+      summary: Add microservices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                services:
+                  - service_type: FrontEnd
+                    configurations:
+                      port: '5432'
+                      numberOfReplicas: 5
+                      name: fe1
+                    connected_service:
+                      - be1
+                    customEnv:
+                      port: '8000'
+                      xyz: efgh
+                    imageRepository:
+                      repositoryImageAddress: http://dockerhub.com
+                      username: ap
+                      email: a@gmail.com
+                      token: rhx85#00913
+                  - service_type: FrontEnd
+                    configurations:
+                      port: '5432'
+                      numberOfReplicas: 5
+                      name: fe2
+                    connected_service:
+                      - be1
+                    customEnv:
+                      port: '0001'
+                      www: efgh
+                    imageRepository:
+                      repositoryImageAddress: http://dockerhub.com
+                      username: ap
+                      email: a@gmail.com
+                      token: rhx85#00913
+                  - service_type: BackEnd
+                    configurations:
+                      port: '5432'
+                      numberOfReplicas: 5
+                      name: be1
+                    connected_service:
+                      - fe1
+                      - fe2
+                    customEnv:
+                      port: '002'
+                      aaaa: efgh
+                    imageRepository:
+                      repositoryImageAddress: http://dockerhub.com
+                      username: ap
+                      email: a@gmail.com
+                      token: rhx85#00913
+                  - service_type: Database
+                    configurations:
+                      port: '5432'
+                      name: db1
+                      dbUser: postgres
+                      dbPassword: abcd
+                      numberOfReplicas: 5
+                      schemaName: mckEmployees
+                    connected_service: []
+                    customEnv:
+                      port: '003'
+                      bbbb: efgh
+                    imageRepository:
+                      repositoryImageAddress: http://dockerhub.com
+                      username: ap
+                      email: a@gmail.com
+                      token: rhx85#00913
+                  - service_type: Database
+                    configurations:
+                      port: '5432'
+                      name: db2
+                      dbUser: postgres
+                      dbPassword: abcd
+                      numberOfReplicas: 5
+                      schemaName: mckEmployees
+                    connected_service: []
+                    customEnv:
+                      port: '004'
+                      sdf: gs
+                    imageRepository:
+                      repositoryImageAddress: http://dockerhub.com
+                      username: ap
+                      email: a@gmail.com
+                      token: rhx85#00913
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjJlNWE1YTViLTUyOTEtNDllZC1iNzE3LWQ0NzExOWQ4MDRjOSIsImZ1bGxOYW1lIjoiYXAiLCJlbWFpbCI6InByb2NvZGVyLmxpdmVAZ21haWwuY29tIiwiaWF0IjoxNjc5OTEwMDI4LCJleHAiOjE3OTk5MTAwMjh9.rhcQlS8g20uYVa52S-pqo48HhmUMU7X_3YU04DqyJWE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/register:
+    post:
+      tags:
+        - default
+      summary: Add new User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: dilip
+                email: dilipsinghrathore212@gmail.com
+                otp: '447210'
+                password: abcdeg
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/login:
+    post:
+      tags:
+        - default
+      summary: Login user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: 1@2.com
+                password: Password1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/validate:
+    get:
+      tags:
+        - default
+      summary: Validate user
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1OTIyNjhlLThlYzAtNDFkNy05ZDJkLTNiMjRjMTVmN2U2ZSIsImZ1bGxOYW1lIjoibmFtZSIsImVtYWlsIjoiMUAyLmNvbSIsImlhdCI6MTY3OTgxMzQ3MSwiZXhwIjoxNjc5ODE0NjcxfQ.H0IKvRfOc5lKhmkbLjtKaOloIoN_w75IXr7MfcCALiA
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/projects/latest:
+    get:
+      tags:
+        - default
+      summary: get latest project of a user
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY5NGM5MDBmLTg1ZGItNGY3MC04NjE2LWI3NTQwZTlmN2I4NSIsImVtYWlsIjoibmtAZ21haWwuY29tIiwiaWF0IjoxNjc5Mzc4MjM0LCJleHAiOjE2NzkzNzk0MzR9.IuDIhL2VYamRkPMGAEuSh6aWZ6yM-Io8rLRPXSgn12I
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/user/generate/otp:
+    post:
+      tags:
+        - default
+      summary: generate otp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: dilipsinghrathore212@gmail.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
